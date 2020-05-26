@@ -192,7 +192,13 @@ public class LeetCode {
         System.out.println(en - st);
         
         
-        //Создаем секундомер
+//----------------------------------------------
+        System.out.println("--- Solution 21 ---");
+        Solution21 s21 = new Solution21();
+        String st21 = "AAX";
+        System.out.println(st21 + " - " + s21.RunLenEncoding(st21));
+        st21 = "13AC2B9XS12V";
+        System.out.println(st21 + " - " + s21.RunLenDecode(st21));
         
     }
 }
@@ -1182,4 +1188,65 @@ class Solution20_1 {
         return s.substring(minLeft,minLeft+minLen);
     }
 }
+
+
+
+///https://habr.com/ru/post/503602/
+//Кодирование длин серий или кодирование повторов (run-length encoding) — это быстрый и простой способ кодирования строк.
+//Суть этого алгоритма заключается в замене повторяющихся символов (серии) на один символ и число его повторов. 
+//Серией называется последовательность, состоящая из нескольких одинаковых символов. 
+//При кодировании строка одинаковых символов, составляющих серию, заменяется строкой, 
+//содержащей сам повторяющийся символ и количество его повторов.
+//
+//Например, строка "AAAABBBCCDAA" после кодирования повторов будет выглядеть как "4A3B2C1D2A".
+//
+//Реализуйте кодирование и декодирование повторов. Строка для кодирования состоит только из букв, не содержит чисел.
+//Строка для декодирования является валидной.
+
+class Solution21{
+    public String RunLenEncoding(String st){
+        if (st.length()<2) return st;
+        int count = 1;
+        StringBuilder stRes = new StringBuilder("");
+        for (int i = 0; i<st.length()-1; i++){
+            if (st.charAt(i) == st.charAt(i+1)) count++; 
+            else {
+                if (count > 1) {
+                    stRes.append(count);
+                }
+                stRes.append(st.charAt(i));
+                count = 1;
+            }
+        }
+        if (count > 1) {
+            stRes.append(count);
+        }
+        stRes.append(st.charAt(st.length()-1));
+        return stRes.toString();
+    }
+    
+    public String RunLenDecode(String st){
+        if (st.length()<2) return st;
+        StringBuilder stRes = new StringBuilder("");
+        String temp = "";
+        for (int i = 0; i< st.length(); i++){
+            if (st.charAt(i)>='0' && st.charAt(i)<='9'){
+                //temp.concat(st.charAt(i));
+                temp += String.valueOf(st.charAt(i));
+            } else {
+                if (temp.equals("")){
+                    stRes.append(st.charAt(i));
+                } else {
+                    int n = Integer.parseInt(temp);
+                    if (n > 0) {
+                        for (int j = 0; j < n; j++) stRes.append(st.charAt(i));
+                        temp = "";
+                    } else stRes.append(st.charAt(i));
+                }
+            }
+        }
+        return stRes.toString();
+    }
+}
+
 
