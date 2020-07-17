@@ -200,6 +200,12 @@ public class LeetCode {
         st21 = "13AC2B9XS12V";
         System.out.println(st21 + " - " + s21.RunLenDecode(st21));
         
+//----------------------------------------------
+        System.out.println();
+        System.out.println("--- Solution1BitAnd2BitCharacters ---");
+        Solution1BitAnd2BitCharacters s22 = new Solution1BitAnd2BitCharacters();
+        System.out.println(s22.isOneBitCharacter(new int[]{1,0,1,0,0,0,1,1,0}));
+        
     }
 }
 
@@ -1248,5 +1254,27 @@ class Solution21{
         return stRes.toString();
     }
 }
+
+
+//// https://leetcode.com/problems/1-bit-and-2-bit-characters/
+// 717. 1-bit and 2-bit Characters
+// We have two special characters. The first character can be represented by one bit 0. The second character can be represented by two bits (10 or 11).
+// Now given a string represented by several bits. Return whether the last character must be a one-bit character or not. The given string will always end with a zero.
+// [1,0,1,0] - false   [0,1,0,1,1,0] - true  [0,1,1,0,1,0] - false
+class Solution1BitAnd2BitCharacters {
+    public boolean isOneBitCharacter(int[] bits) {
+        boolean result = true;
+        for(int i = 0; i<bits.length; i++){
+            if(bits[i] == 1){
+                i++;
+                result = false;
+            } else {
+                result = true;
+            }
+        }
+        return result;
+    }
+}
+
 
 
