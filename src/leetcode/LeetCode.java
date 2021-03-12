@@ -205,6 +205,16 @@ public class LeetCode {
         System.out.println("--- Solution1BitAnd2BitCharacters ---");
         Solution1BitAnd2BitCharacters s22 = new Solution1BitAnd2BitCharacters();
         System.out.println(s22.isOneBitCharacter(new int[]{1,0,1,0,0,0,1,1,0}));
+
+        
+//----------------------------------------------
+        System.out.println();
+        System.out.println("--- Solution 23 ---");
+        Solution23 s23 = new Solution23();
+        String st23 = "the sky is blue";
+        System.out.println(st23 + " - " + s23.reverseWords(st23));
+        st23 = "  Bob    Loves  Alice   ";
+        System.out.println(st23 + " - " + s23.reverseWords(st23));
         
     }
 }
@@ -1275,6 +1285,75 @@ class Solution1BitAnd2BitCharacters {
         return result;
     }
 }
+
+/*
+https://leetcode.com/problems/reverse-words-in-a-string/
+151. Reverse Words in a String
+Medium
+
+Given an input string s, reverse the order of the words.
+
+A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
+
+Return a string of the words in reverse order concatenated by a single space.
+
+Note that s may contain leading or trailing spaces or multiple spaces between two words. 
+The returned string should only have a single space separating the words. Do not include any extra spaces.
+
+Example 1:
+
+Input: s = "the sky is blue"
+Output: "blue is sky the"
+
+Example 2:
+
+Input: s = "  hello world  "
+Output: "world hello"
+Explanation: Your reversed string should not contain leading or trailing spaces.
+
+*/
+
+/*
+class Solution23 {
+    public String reverseWords(String s) {
+        String[] words = s.split("\\s"); // Разбиение строки на слова с помощью разграничителя (пробел)
+        StringBuilder resultStr = new StringBuilder();
+
+        for(int i = words.length-1; i>=0; i--) {
+            if (words[i].length() > 0){
+                resultStr.append(words[i]+" ");
+            }
+        }
+
+        if (resultStr.length() > 0) {
+           resultStr.setLength(resultStr.length() - 1);
+        }        
+
+        return resultStr.toString();
+    }
+}
+*/
+
+class Solution23 {
+    public String reverseWords(String s) {
+        String[] words = s.split(" "); // Разбиение строки на слова с помощью разграничителя (пробел)
+        StringBuilder resultStr = new StringBuilder();
+
+        String prefix = "";
+        for(int i = words.length-1; i>=0; i--) {
+            if (words[i].length() > 0){
+                resultStr.append(prefix);
+                resultStr.append(words[i]);
+                prefix = " ";
+            }
+        }
+        return resultStr.toString();
+    }
+}
+
+
+
+
 
 
 
