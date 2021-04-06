@@ -215,7 +215,14 @@ public class LeetCode {
         System.out.println(st23 + " - " + s23.reverseWords(st23));
         st23 = "  Bob    Loves  Alice   ";
         System.out.println(st23 + " - " + s23.reverseWords(st23));
-        
+
+//----------------------------------------------
+        System.out.println();
+        System.out.println("--- Solution 24 ---");
+        Solution24 s24 = new Solution24();
+        System.out.print("---Ugly Number from 5, 2, 5, 3: ");
+        System.out.println(s24.nthUglyNumber(5, 2, 5, 3));
+
     }
 }
 
@@ -1351,7 +1358,36 @@ class Solution23 {
     }
 }
 
+//https://leetcode.com/problems/ugly-number-iii/
+//Given four integers n, a, b, and c, return the nth ugly number.
+//
+//Ugly numbers are positive integers that are divisible by a, b, or c.
+//
+//Example 1:
+//Input: n = 3, a = 2, b = 3, c = 5
+//Output: 4
+//Explanation: The ugly numbers are 2, 3, 4, 5, 6, 8, 9, 10... The 3rd is 4.
+//
+//Example 2:
+//Input: n = 4, a = 2, b = 3, c = 4
+//Output: 6
+//Explanation: The ugly numbers are 2, 3, 4, 6, 8, 9, 10, 12... The 4th is 6.
 
+class Solution24 {
+    public int nthUglyNumber(int n, int a, int b, int c) {
+        int uglyNum = 0;
+        int currentNum = 0;
+        
+        while (n != currentNum) {            
+            uglyNum++;
+            if ((uglyNum % a == 0) || (uglyNum % b == 0) || (uglyNum % c == 0)){
+                currentNum++;
+            }
+        }
+        
+        return uglyNum;
+    }
+}
 
 
 
