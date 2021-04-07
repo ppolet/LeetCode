@@ -5,6 +5,7 @@
  */
 package leetcode;
 
+import java.lang.annotation.Repeatable;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -220,9 +221,25 @@ public class LeetCode {
         System.out.println();
         System.out.println("--- Solution 24 ---");
         Solution24 s24 = new Solution24();
-        System.out.print("---Ugly Number from 5, 2, 5, 3: ");
-        System.out.println(s24.nthUglyNumber(5, 2, 5, 3));
+        System.out.print("---Ugly Number from 10, 2, 3, 5: ");
+        System.out.println(s24.nthUglyNumber(10, 2, 3, 5));
+        
 
+//----------------------------------------------
+        System.out.println();
+        System.out.println("--- Solution 25 ---");
+        Solution25 s25 = new Solution25();
+        int num25 = 8;
+        System.out.println("sqrt and truncate " + num25 + ": " + s25.mySqrt(num25));
+
+
+//----------------------------------------------
+        System.out.println();
+        System.out.println("--- Solution 26 ---");
+        Solution26 s26 = new Solution26();
+        int num26 = 125;
+        System.out.println("Number of trailing zeroes in " + num26 + "!: " + s26.trailingZeroes(num26));
+        
     }
 }
 
@@ -1389,7 +1406,55 @@ class Solution24 {
     }
 }
 
+//// https://leetcode.com/problems/sqrtx/
+//Given a non-negative integer x, compute and return the square root of x.
+//
+//Since the return type is an integer, the decimal digits are truncated, and only the integer part of the result is returned.
+//
+//Example 1:
+//Input: x = 4
+//Output: 2
+//
+//Example 2:
+//Input: x = 8
+//Output: 2
+//Explanation: The square root of 8 is 2.82842..., and since the decimal part is truncated, 2 is returned.
+
+class Solution25 {
+    public int mySqrt(int x) {
+        return (int)Math.sqrt(x);
+    }
+}
 
 
+//// https://leetcode.com/problems/factorial-trailing-zeroes/
+//Given an integer n, return the number of trailing zeroes in n!.
+//
+//Follow up: Could you write a solution that works in logarithmic time complexity?
+//
+//Example 1:
+//Input: n = 3
+//Output: 0
+//Explanation: 3! = 6, no trailing zero.
+//
+//Example 2:
+//Input: n = 5
+//Output: 1
+//Explanation: 5! = 120, one trailing zero.
+//
+//Example 3:
+//Input: n = 0
+//Output: 0
 
+class Solution26 {
+    public int trailingZeroes(int n) {
+        int count = 0;
+        int n5 = 5;
+        while (n >= n5){
+            count += n/n5;
+            n5 = n5*5;
+        }
+        return (count);
+    }
 
+}
