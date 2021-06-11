@@ -9,6 +9,7 @@ import java.lang.annotation.Repeatable;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -239,6 +240,22 @@ public class LeetCode {
         Solution26 s26 = new Solution26();
         int num26 = 125;
         System.out.println("Number of trailing zeroes in " + num26 + "!: " + s26.trailingZeroes(num26));
+
+        
+//----------------------------------------------
+        System.out.println();
+        System.out.println("--- Solution 27 ---");
+        Solution27 s27 = new Solution27();
+        int[] arr27 = {-2147483648};
+        System.out.println("Majority Element: " + s27.majorityElement(arr27));
+
+        
+//----------------------------------------------
+        System.out.println();
+        System.out.println("--- Solution 28 ---");
+        Solution28 s28 = new Solution28();
+        System.out.println("Day of week: " + s28.dayOfTheWeek(11, 6, 2021));
+
         
     }
 }
@@ -1458,3 +1475,94 @@ class Solution26 {
     }
 
 }
+
+
+//https://leetcode.com/problems/majority-element/
+//169. Majority Element
+//Given an array nums of size n, return the majority element.
+//
+//The majority element is the element that appears more than (n / 2) times. You may assume that the majority element always exists in the array.
+//
+//Example 1:
+//
+//Input: nums = [3,2,3]
+//Output: 3
+//
+//Example 2:
+//
+//Input: nums = [2,2,1,1,1,2,2]
+//Output: 2
+//
+//Constraints:
+//    n == nums.length
+//    1 <= n <= 5 * 104
+//    -231 <= nums[i] <= 231 - 1
+//Follow-up: Could you solve the problem in linear time and in O(1) space?
+
+// Читать задания надо лучше :) Сделал общее решение задачи для любого кол-ва повторяющихся элементов
+// а надо было для >=n/2, исходные данные задачи всегда удовлетворяет этому условию
+class Solution27 {
+    public int majorityElement(int[] nums) {
+        int maxNum = 1; //максимальное кол-во одинаковых чисел в массиве
+        int maxNumKey = nums[0]; //число из массива с максимальным кол-во штук
+        Map<Integer, Integer> map = new HashMap<>();
+        int n = 0;
+        for(int i = 0; i<nums.length; i++){
+            if (map.containsKey(nums[i])){
+                n = map.get(nums[i]);
+                map.put(nums[i], ++n);
+                if (n>maxNum){
+                    maxNumKey = nums[i];
+                    maxNum = n;
+                }
+            } else {
+                map.put(nums[i], 1);
+            }
+        }
+        return maxNumKey;
+    }
+}
+// так изящнее и быстрее
+class Solution27_2 {
+    public int majorityElement(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length/2];
+    }
+}
+
+
+//
+//Given a date, return the corresponding day of the week for that date.
+//The input is given as three integers representing the day, month and year respectively.
+//Return the answer as one of the following values {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}.
+//
+//Example 1:
+//
+//Input: day = 31, month = 8, year = 2019
+//Output: "Saturday"
+//
+//Example 2:
+//
+//Input: day = 18, month = 7, year = 1999
+//Output: "Sunday"
+//
+//Example 3:
+//
+//Input: day = 15, month = 8, year = 1993
+//Output: "Sunday"
+//
+//Constraints:
+//    The given dates are valid dates between the years 1971 and 2100.
+//
+
+class Solution28 {
+    public String dayOfTheWeek(int day, int month, int year) {
+        String dayOfTheWeekString[] = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+       
+        Calendar c = Calendar.getInstance();
+        c.set(year, month-1, day);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        return dayOfTheWeekString[dayOfWeek-1];
+    }
+}
+
