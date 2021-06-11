@@ -254,7 +254,10 @@ public class LeetCode {
         System.out.println();
         System.out.println("--- Solution 28 ---");
         Solution28 s28 = new Solution28();
-        System.out.println("Day of week: " + s28.dayOfTheWeek(11, 6, 2021));
+        System.out.println("Day of week: " + s28.dayOfTheWeek(31, 12, 2021));
+        System.out.println("--- Solution 28 manual ---");
+        Solution28_manual s28_manual = new Solution28_manual();
+        System.out.println("Day of week: " + s28_manual.dayOfTheWeek(31, 12, 2021));
 
         
     }
@@ -1565,4 +1568,35 @@ class Solution28 {
         return dayOfTheWeekString[dayOfWeek-1];
     }
 }
+
+class Solution28_manual {
+    public String dayOfTheWeek(int day, int month, int year) {
+        String dayOfTheWeekString[] = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        int daysInMonth[] = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+        int dayOfWeek;
+        //01.01.1971 - Friday [4]
+        //Високосный год - 2020, ... 1974
+        
+        int daysTotal = (year - 1971)*365 + (year - 1 - 1968)/4; //всего дней в невисокосных годах + дней високосных лет (1968 - високосный)
+        for (int i=0; i<month-1; i++){
+            daysTotal += daysInMonth[i];
+        }
+        
+        daysTotal += day;
+        
+        //проверяем, что високосный год и добавляем 1 день, если месяц больше равен марту
+        if((year-1968)%4 == 0)
+            if(month>=3){
+                daysTotal++;    
+            }
+        
+        daysTotal += 3; //т.к. 01.01.1971 - пятница
+        
+        dayOfWeek = daysTotal % 7;
+        
+        return dayOfTheWeekString[dayOfWeek];
+    }
+}
+
 
