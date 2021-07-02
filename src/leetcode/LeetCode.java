@@ -259,6 +259,12 @@ public class LeetCode {
         Solution28_manual s28_manual = new Solution28_manual();
         System.out.println("Day of week: " + s28_manual.dayOfTheWeek(31, 12, 2021));
 
+
+//----------------------------------------------
+        System.out.println("--- Solution 29 ---");
+        Solution29 s29 = new Solution29();
+        int[] arr29 = {1,0,0,0,1,0};
+        s29.sortColors(arr29);
         
     }
 }
@@ -1599,4 +1605,45 @@ class Solution28_manual {
     }
 }
 
+// https://leetcode.com/problems/sort-colors/
+//Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
+//We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+//You must solve this problem without using the library's sort function.
+//
+//Example 1:
+//Input: nums = [2,0,2,1,1,0]
+//Output: [0,0,1,1,2,2]
+//
+//Example 2:
+//Input: nums = [2,0,1]
+//Output: [0,1,2]
+//
+//Example 3:
+//Input: nums = [0]
+//Output: [0]
+//
+//Example 4:
+//Input: nums = [1]
+//Output: [1]
+//
+//Constraints:
+//    n == nums.length
+//    1 <= n <= 300
+//    nums[i] is 0, 1, or 2.
+//Follow up: Could you come up with a one-pass algorithm using only constant extra space?
 
+
+class Solution29 {
+    public void sortColors(int[] nums) {
+        int n0 = 0;
+        int n1 = 0;
+        for(int i=0; i<nums.length; i++){
+            if (nums[i] == 0) n0++;
+            if (nums[i] == 1) n1++;
+        }
+        if (n0 != 0) Arrays.fill(nums, 0, n0, 0);
+        if (n1 != 0) Arrays.fill(nums, n0, n0+n1, 1);
+        if (nums.length != n0+n1) Arrays.fill(nums, n0+n1, nums.length, 2);
+        System.out.println("nums sorted: " + Arrays.toString(nums));
+    }
+}
