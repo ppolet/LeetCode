@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import leetcode.LeetCode2;
 
 /**
  *
@@ -265,6 +266,44 @@ public class LeetCode {
         Solution29 s29 = new Solution29();
         int[] arr29 = {1,0,0,0,1,0};
         s29.sortColors(arr29);
+
+//----------------------------------------------
+        System.out.println("--- Solution 30 ---");
+        Solution30 s30 = new Solution30();
+        int[] arr30_1 = {1,4,7,7,10,23};
+        int[] arr30_2 = {2,7,9,10,23};
+        int[] arr30_3 = {1,3,7,9,12,23,24,67,90};
+        s30.getDublicate(arr30_1, arr30_2, arr30_3);
+        
+        
+//              leetCode2.java
+//----------------------------------------------
+        System.out.println("--- Solution 31 ---");
+        Solution31 s31 = new Solution31();
+        int[] arr31 = {1,3,5,6};
+        int target = 6;
+        System.out.println("(Solution 31) Search Insert: " + s31.searchInsert(arr31, target));
+
+
+//----------------------------------------------
+        System.out.println("--- Solution 32 ---");
+        Solution32 s32 = new Solution32();
+        int[] arr32 = {1,8,6,2,5,4,8,3,7};
+        System.out.println("(Solution 32) Output: " + s32.maxArea(arr32));
+
+
+//----------------------------------------------
+        System.out.println("--- Solution 33 ---");
+        Solution33 s33 = new Solution33();
+        String st33 = "101023";
+        List<String> list33 = s33.restoreIpAddresses(st33);
+        System.out.println("(Solution 33) Output: ");
+        String str33_1 = "";
+        for(String str33: list33){
+            System.out.print(str33_1 + str33);
+            str33_1 = ", ";
+        }
+
         
     }
 }
@@ -1647,3 +1686,41 @@ class Solution29 {
         System.out.println("nums sorted: " + Arrays.toString(nums));
     }
 }
+
+
+//https://habr.com/ru/post/582600/
+//поиск одинаковых элементов в 3 отсортированных массивах с использованием O(1) памяти.
+//
+
+class Solution30 {
+    public void getDublicate(int[] ar1, int[] ar2, int[] ar3) {
+        int ar2min = 0, ar3min = 0;
+        for(int i = 0; i < ar1.length; i++){
+            if(i > 0 && ar1[i] != ar1[i-1])
+            for(int j = ar2min; j < ar2.length; j++){
+                if(ar1[i] == ar2[j]){
+                    ar2min = j;
+                    for(int k = ar3min; k < ar3.length; k++){
+                        if(ar1[i] == ar3[k]){
+                            System.out.println(ar1[i]);
+                            ar3min = k;
+                            break;
+                        }
+                        if(ar1[i] < ar3[k]) break;
+                    }
+                }
+                if(ar1[i] < ar2[j]) break;
+            }
+        }
+        
+    }
+}
+
+
+///////////////////////////////////////////////////////////
+/*
+    Продолжение в LeetCode2.java
+*/
+///////////////////////////////////////////////////////////
+
+
