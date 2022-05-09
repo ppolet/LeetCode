@@ -304,6 +304,10 @@ public class LeetCode {
             str33_1 = ", ";
         }
 
+//----------------------------------------------
+        System.out.println("--- Solution 34 ---");
+        Solution34 s34 = new Solution34();
+        System.out.println("s34: " + s34.isPalindrome(1231));
         
     }
 }
