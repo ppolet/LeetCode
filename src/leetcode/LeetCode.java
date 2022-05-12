@@ -303,6 +303,23 @@ public class LeetCode {
         System.out.println("--- Solution 35 ---");
         Solution35 s35 = new Solution35();
         System.out.println("s35: " + s35.divide(-2147483648, 1));
+
+//----------------------------------------------
+        System.out.println("--- Solution 36 ---");
+        Solution36 s36 = new Solution36();
+        int[] nums36 = new int[] {1, 3, 5, 4};
+        System.out.println("s35: " + s36.findPeakElement(nums36));        
+        
+//----------------------------------------------
+        System.out.println("--- Solution 37 ---");
+        Solution37 s37 = new Solution37();
+        System.out.println("s37: " + s37.compareVersion("1.1.2", "1.0.3"));
+        
+        
+//----------------------------------------------
+        System.out.println("--- Solution 38 ---");
+        Solution38 s38 = new Solution38();
+        System.out.println("s38: " + s38.convertToTitle(35853)); //AZZY
         
     }
 }

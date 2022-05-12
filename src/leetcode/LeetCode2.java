@@ -283,3 +283,180 @@ class Solution35 {
 }
 
 
+
+/*
+https://leetcode.com/problems/find-peak-element/
+162. Find Peak Element
+Medium
+
+A peak element is an element that is strictly greater than its neighbors.
+Given an integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks.
+You may imagine that nums[-1] = nums[n] = -∞.
+You must write an algorithm that runs in O(log n) time.
+
+Example 1:
+
+Input: nums = [1,2,3,1]
+Output: 2
+Explanation: 3 is a peak element and your function should return the index number 2.
+
+Example 2:
+
+Input: nums = [1,2,1,3,5,6,4]
+Output: 5
+Explanation: Your function can return either index number 1 where the peak element is 2, or index number 5 where the peak element is 6.
+*/
+
+class Solution36 {
+    public int findPeakElement(int[] nums) {
+        int result = -1;
+        int[] sortNums = nums.clone();
+        Arrays.sort(sortNums);
+        int len = nums.length;
+        for(int i = 0; i < len; i++){
+            if (nums[i] == sortNums[len-1]) {
+                result = i;
+                break;
+            }
+        }
+        return result;
+    }
+}
+
+
+/*
+https://leetcode.com/problems/compare-version-numbers/
+165. Compare Version Numbers
+Medium
+
+Given two version numbers, version1 and version2, compare them.
+Version numbers consist of one or more revisions joined by a dot '.'. 
+Each revision consists of digits and may contain leading zeros. Every revision contains at least one character. 
+Revisions are 0-indexed from left to right, with the leftmost revision being revision 0, 
+the next revision being revision 1, and so on. For example 2.5.33 and 0.1 are valid version numbers.
+
+To compare version numbers, compare their revisions in left-to-right order. 
+Revisions are compared using their integer value ignoring any leading zeros. 
+This means that revisions 1 and 001 are considered equal. 
+If a version number does not specify a revision at an index, then treat the revision as 0. 
+For example, version 1.0 is less than version 1.1 because their revision 0s are the same, but their revision 1s are 0 and 1 respectively, and 0 < 1.
+
+Return the following:
+
+    If version1 < version2, return -1.
+    If version1 > version2, return 1.
+    Otherwise, return 0.
+
+Example 1:
+
+Input: version1 = "1.01", version2 = "1.001"
+Output: 0
+Explanation: Ignoring leading zeroes, both "01" and "001" represent the same integer "1".
+
+Example 2:
+
+Input: version1 = "1.0", version2 = "1.0.0"
+Output: 0
+Explanation: version1 does not specify revision 2, which means it is treated as "0".
+
+Example 3:
+
+Input: version1 = "0.1", version2 = "1.1"
+Output: -1
+Explanation: version1's revision 0 is "0", while version2's revision 0 is "1". 0 < 1, so version1 < version2.
+
+Constraints:
+    1 <= version1.length, version2.length <= 500
+    version1 and version2 only contain digits and '.'.
+    version1 and version2 are valid version numbers.
+    All the given revisions in version1 and version2 can be stored in a 32-bit integer.
+*/
+
+class Solution37 {
+    public int compareVersion(String version1, String version2) {
+        String[] verStr1 = version1.split("\\.");
+        String[] verStr2 = version2.split("\\.");
+
+        int ver1len = verStr1.length;
+        int ver2len = verStr2.length;
+                       
+        int[] ver1 = new int[ver1len];
+        for(int i = 0; i < ver1len; i++){
+            ver1[i] = Integer.parseInt(verStr1[i]);
+        }
+                       
+        int[] ver2 = new int[ver2len];
+        for(int i = 0; i < ver2len; i++){
+            ver2[i] = Integer.parseInt(verStr2[i]);
+        }
+        
+        int result = 0;
+        int count = 0;
+        int maxCount = (ver1len > ver2len) ? ver1len : ver2len;
+        int a, b;
+        while(result == 0 && count < maxCount){
+            a = 0; 
+            b = 0;
+            if (count < ver1len) a = ver1[count];
+            if (count < ver2len) b = ver2[count];
+            
+            if(a < b) result = -1;
+            if(a > b) result = 1;
+            count++;
+        }
+        
+        return result;
+    }
+}
+
+
+/*
+https://leetcode.com/problems/excel-sheet-column-title/
+168. Excel Sheet Column Title
+Easy
+
+Given an integer columnNumber, return its corresponding column title as it appears in an Excel sheet.
+
+For example:
+
+A -> 1
+B -> 2
+C -> 3
+...
+Z -> 26
+AA -> 27
+AB -> 28 
+...
+
+Example 1:
+
+Input: columnNumber = 1
+Output: "A"
+
+Example 2:
+
+Input: columnNumber = 28
+Output: "AB"
+
+Example 3:
+
+Input: columnNumber = 701
+Output: "ZY"
+
+Constraints:
+    1 <= columnNumber <= 2^31 - 1
+*/
+
+class Solution38 {
+    public String convertToTitle(int columnNumber) {
+        StringBuilder result = new StringBuilder();
+        int n = columnNumber;
+        while(n > 0){
+            n--;
+            result.insert(0, (char)('A' + n % 26));
+            n /= 26;
+        }
+        return result.toString();
+    }
+}
+
