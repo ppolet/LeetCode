@@ -6,7 +6,6 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import leetcode.LeetCode2;
 
 /**
  *
@@ -320,6 +319,29 @@ public class LeetCode {
         System.out.println("--- Solution 38 ---");
         Solution38 s38 = new Solution38();
         System.out.println("s38: " + s38.convertToTitle(35853)); //AZZY
+
+
+//----------------------------------------------
+        System.out.println("--- Solution 39 ---");
+        Solution39 s39 = new Solution39();
+        System.out.println("s39: " + s39.multiply("5934", "8123")); 
+        System.out.println("s39: " + s39.multiply("1234", "0")); 
+        
+
+//----------------------------------------------
+        System.out.println("--- Raznoe 1 ---");
+        Raznoe1 raz1 = new Raznoe1();
+        int[] rNums1 = new int[] {1, 2, 4, 0, 6, 9};
+        System.out.println("Raznoe1: " + raz1.isTrue(rNums1));
+
+        
+//----------------------------------------------
+        System.out.println("--- Solution 40 ---");
+        Solution40 s40 = new Solution40();
+        int[] nums40 = {3,30,34,5,9};
+        System.out.println("s40: " + s40.largestNumber(nums40)); 
+        
+
         
     }
 }

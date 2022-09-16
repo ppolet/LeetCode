@@ -3,6 +3,8 @@ package leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class LeetCode2 {
@@ -459,4 +461,146 @@ class Solution38 {
         return result.toString();
     }
 }
+
+
+/*
+https://leetcode.com/problems/multiply-strings/
+43. Multiply Strings
+Medium
+
+Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
+
+Note: You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
+Example 1:
+
+Input: num1 = "2", num2 = "3"
+Output: "6"
+
+Example 2:
+
+Input: num1 = "123", num2 = "456"
+Output: "56088"
+
+Constraints:
+    1 <= num1.length, num2.length <= 200
+    num1 and num2 consist of digits only.
+    Both num1 and num2 do not contain any leading zero, except the number 0 itself.
+*/
+/*
+      123
+     *456
+  -------
+      738
+     615
+    492
+  -------
+    56088
+*/
+
+class Solution39 {
+    public String multiply(String num1, String num2) {
+        StringBuilder result = new StringBuilder();
+        int temp = 0;
+        int temp2 = 0;
+ 
+        StringBuilder[] line = new StringBuilder[num2.length()];
+        for(int i2 = num2.length()-1; i2>=0; i2--){
+            int k = 0;
+            int numIndex = 0;
+            for(int i1 = num1.length()-1; i1>=0; i1--){
+                temp = (num1.charAt(i1) - '0') * (num2.charAt(i2) - '0') + temp/10;  //умножаем числа и добавляем значение "в уме"
+                if(i2 == num2.length()-1){  //первая строка
+                    result.insert(0, temp % 10);
+                } else {                    //не первая строка
+                    numIndex = result.length() - num2.length() + i2 - k;
+                    if(numIndex >= 0){
+                        temp2 = (temp % 10) + (result.charAt(numIndex) - '0') + (temp2 / 10);
+                        result.setCharAt(numIndex, (char)((temp2 % 10) + '0'));
+                    } else {
+                        result.insert(0, temp + temp2 / 10);
+                        temp = 0;
+                        temp2 = 0;
+                    }
+                    k++;
+                }
+                //line[i2] = line[i2].insert(0, ("" + temp % 10));
+            }
+//            if(temp / 10 != 0) result.insert(0, temp / 10 + temp2 / 10);
+            if(temp/10 + temp2/10 != 0) result.insert(0, temp / 10 + temp2 / 10);
+            temp = 0;
+            temp2 = 0;
+        }
+        
+        String newResult = "";
+        for(int i = 0; i < result.length(); i++){
+            if(result.charAt(i) != '0' || i == result.length()-1){
+                newResult = result.substring(i, result.length());
+                break;
+            }
+        }
+        
+        return newResult;
+    }
+}
+    
+/*
+https://leetcode.com/problems/largest-number/
+179. Largest Number
+Medium
+
+Given a list of non-negative integers nums, arrange them such that they form the largest number and return it.
+
+Since the result may be very large, so you need to return a string instead of an integer.
+
+Example 1:
+Input: nums = [10,2]
+Output: "210"
+
+Example 2:
+Input: nums = [3,30,34,5,9]
+Output: "9534330"
+
+510 51
+51 510 *
+51 520
+520 51 *
+511 51
+51 511 *
+
+Constraints:
+    1 <= nums.length <= 100
+    0 <= nums[i] <= 109
+*/
+class Solution40{
+    public String largestNumber(int[] nums) {
+        String[] numsSt = new String[nums.length];
+        for(int i=0; i<nums.length; i++){
+            numsSt[i] = "" + nums[i];
+        }
+
+        Integer[] numsInteger = new Integer[nums.length];
+        int i = 0;
+        for (int value : nums) {
+            numsInteger[i++] = Integer.valueOf(value);
+        }
+        
+        Arrays.sort(numsInteger, new Comparator<Integer>() {
+            @Override
+            public int compare(int o1, int o2) {
+                //return o2.compareTo(o1);            // сортируем по убыванию
+                return (o1 < o2);
+            }
+        });        
+
+        Arrays.sort(numsSt, Comparator.reverseOrder());
+
+        StringBuilder result = new StringBuilder();
+        for(int i=0; i<nums.length; i++){
+            result.append(numsSt[i]);
+        }
+        return result.toString();
+    }
+}
+
 
