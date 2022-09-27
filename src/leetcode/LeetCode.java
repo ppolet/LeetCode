@@ -341,7 +341,19 @@ public class LeetCode {
         int[] nums40 = {3,30,34,5,9};
         System.out.println("s40: " + s40.largestNumber(nums40)); 
         
+        
+//----------------------------------------------
+        System.out.println("--- Solution 41 ---");
+        Solution41 s41 = new Solution41();
+        System.out.println("standard Math.pow: " + Math.pow(2.0, -2147483648)); 
+        System.out.println("s41: " + s41.myPow(2.0, -2147483648)); 
+       
 
+//----------------------------------------------
+        System.out.println("--- Solution 42 ---");
+        Solution42 s42 = new Solution42();
+        System.out.println("s42: " + s42.addBinary("0", "0")); 
+        
         
     }
 }

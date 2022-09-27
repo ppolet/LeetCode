@@ -574,33 +574,145 @@ Constraints:
 */
 class Solution40{
     public String largestNumber(int[] nums) {
-        String[] numsSt = new String[nums.length];
-        for(int i=0; i<nums.length; i++){
-            numsSt[i] = "" + nums[i];
+        Integer[] numsInteger = new Integer[nums.length];
+        int n = 0;
+        for (int value : nums) {
+            numsInteger[n++] = Integer.valueOf(value);
         }
 
-        Integer[] numsInteger = new Integer[nums.length];
-        int i = 0;
-        for (int value : nums) {
-            numsInteger[i++] = Integer.valueOf(value);
-        }
-        
         Arrays.sort(numsInteger, new Comparator<Integer>() {
             @Override
-            public int compare(int o1, int o2) {
-                //return o2.compareTo(o1);            // сортируем по убыванию
-                return (o1 < o2);
+            public int compare(Integer a, Integer b) {
+                
+                //кол-во знаков в числе
+                long k = 10;
+                while(k <= b){
+                    k *= 10;
+                }
+                long res1 = a*k + b;
+                
+                k = 10;
+                while(k <= a){
+                    k *= 10;
+                }
+                long res2 = b*k + a;
+                
+                return Long.compare(res2, res1);
             }
-        });        
-
-        Arrays.sort(numsSt, Comparator.reverseOrder());
+        });     
 
         StringBuilder result = new StringBuilder();
-        for(int i=0; i<nums.length; i++){
-            result.append(numsSt[i]);
+        for (Integer num : numsInteger) {
+            result.append(num);
         }
-        return result.toString();
+        
+        return result.charAt(0) == '0' ? "0" : result.toString();
+        
     }
 }
 
 
+/*
+https://leetcode.com/problems/powx-n/
+50. Pow(x, n)
+Medium
+
+Implement pow(x, n), which calculates x raised to the power n (i.e., xn).
+
+Example 1:
+Input: x = 2.00000, n = 10
+Output: 1024.00000
+
+Example 2:
+Input: x = 2.10000, n = 3
+Output: 9.26100
+
+Example 3:
+Input: x = 2.00000, n = -2
+Output: 0.25000
+Explanation: 2-2 = 1/22 = 1/4 = 0.25
+
+Constraints:
+    -100.0 < x < 100.0
+    -2^31 <= n <= 2^31-1
+    n is an integer.
+    -10^4 <= xn <= 10^4
+*/
+
+class Solution41 {
+    public double myPow(double x, int n) {
+        double result = 1;
+        
+        if(n == 0) return 1;
+       
+        long absN = n;
+        if(n < 0) absN = -1L * n;
+        
+        while(absN > 0){
+            if(absN % 2 == 0){
+                x = x * x;
+                absN /= 2;
+            } else {
+                result = result * x;
+                absN -= 1;
+            }
+        }
+        
+        return n > 0 ? result : 1 / result;
+    }
+}
+
+/*
+https://leetcode.com/problems/add-binary/
+67. Add Binary
+Easy
+
+Given two binary strings a and b, return their sum as a binary string.
+
+Example 1:
+Input: a = "11", b = "1"
+Output: "100"
+
+Example 2:
+Input: a = "1010", b = "1011"
+Output: "10101"
+
+11 11      0 
+Constraints:
+    1 <= a.length, b.length <= 104
+    a and b consist only of '0' or '1' characters.
+    Each string does not contain leading zeros except for the zero itself.
+*/
+
+class Solution42 {
+    public String addBinary(String a, String b) {
+        //if(a.equals("0") && b.equals("0")) return "0";
+        
+        StringBuilder res = new StringBuilder();
+        
+        int mem = 0;
+        int temp = 0;
+        
+        int j = 1;
+        int tempA, tempB;
+        while(a.length() >= j || b.length() >= j){
+            tempA = (a.length() >= j) ? a.charAt(a.length() - j) - '0' : 0;
+            tempB = (b.length() >= j) ? b.charAt(b.length() - j) - '0' : 0;
+            temp = tempA + tempB + mem;
+            if(temp == 3){
+                res.append('1');
+                mem = 1;
+            } else if (temp == 2) {
+                res.append('0');
+                mem = 1;
+            } else {
+                res.append(temp);
+                mem = 0;
+            }
+            j++;
+        }
+        if(mem == 1) res.append(mem);
+        
+        return res.reverse().toString();
+    }
+}
